@@ -1,7 +1,7 @@
-﻿using BloodBankSystem.API.Models;
+﻿using BloodBankSystem.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BloodBankSystem.API.Controllers
+namespace BloodBankSystem.Application.Controllers
 {
     [ApiController]
     [Route("api/bloodStocks")]

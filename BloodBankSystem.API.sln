@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBankSystem.API", "BloodBankSystem.API\BloodBankSystem.API.csproj", "{808AB84D-A7BA-425B-A597-EC404D07193C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodBankSystem.API", "BloodBankSystem.API\BloodBankSystem.API.csproj", "{808AB84D-A7BA-425B-A597-EC404D07193C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBankSystem.Core", "BloodBankSystem.Core\BloodBankSystem.Core.csproj", "{5C6A6431-0659-4D51-8568-93ABBC2EB393}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBankSystem.Infrastructure", "BloodBankSystem.Infrastructure\BloodBankSystem.Infrastructure.csproj", "{447C0449-BF75-4D67-B49A-4EB6E3CE596A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBankSystem.Application", "BloodBankSystem.Application\BloodBankSystem.Application.csproj", "{1472DBA1-BB58-4AE3-850A-DF07241D659A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{808AB84D-A7BA-425B-A597-EC404D07193C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{808AB84D-A7BA-425B-A597-EC404D07193C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{808AB84D-A7BA-425B-A597-EC404D07193C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C6A6431-0659-4D51-8568-93ABBC2EB393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C6A6431-0659-4D51-8568-93ABBC2EB393}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C6A6431-0659-4D51-8568-93ABBC2EB393}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C6A6431-0659-4D51-8568-93ABBC2EB393}.Release|Any CPU.Build.0 = Release|Any CPU
+		{447C0449-BF75-4D67-B49A-4EB6E3CE596A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{447C0449-BF75-4D67-B49A-4EB6E3CE596A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{447C0449-BF75-4D67-B49A-4EB6E3CE596A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{447C0449-BF75-4D67-B49A-4EB6E3CE596A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1472DBA1-BB58-4AE3-850A-DF07241D659A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1472DBA1-BB58-4AE3-850A-DF07241D659A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1472DBA1-BB58-4AE3-850A-DF07241D659A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1472DBA1-BB58-4AE3-850A-DF07241D659A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

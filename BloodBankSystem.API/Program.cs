@@ -1,5 +1,6 @@
-using BloodBankSystem.API.Entities.Persistence;
 using BloodBankSystem.API.ExceptionHandler;
+using BloodBankSystem.Application;
+using BloodBankSystem.Infrastructure.Entities.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<BloodBankSystemDBContext>(b => b.UseSqlServer(connectionString));
+
+builder.Services.AddApplication();
 
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();

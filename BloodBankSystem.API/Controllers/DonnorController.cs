@@ -1,6 +1,5 @@
-﻿using BloodBankSystem.API.Entities;
-using BloodBankSystem.API.Entities.Persistence;
-using BloodBankSystem.API.Models;
+﻿using BloodBankSystem.Application.Models;
+using BloodBankSystem.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBankSystem.API.Controllers
@@ -10,52 +9,66 @@ namespace BloodBankSystem.API.Controllers
     [Route("api/donors")]
     public class DonnorController : ControllerBase
     {
-        private readonly BloodBankSystemDBContext context;
-        public DonnorController(BloodBankSystemDBContext context)
+        private readonly IDonorService _donorService;
+        public DonnorController(IDonorService donorService)
         {
-            this.context = context;
+            _donorService = donorService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
+            var result = _donorService.GetAll();
 
-            var teste = this.context.Donors.FirstOrDefault();
-            return Ok(teste);
+            return Ok(result);
 
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById()
+        public IActionResult GetById(int id)
         {
-            return Ok();
+            var result = _donorService.GetById(id);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
         }
 
 
         [HttpPost]
         public IActionResult Post(CreateDonnorInputModel model)
         {
+            var result = _donorService.Insert(model);
 
-            var donor = new Donor("TESTE", "", DateTime.Now, "", 1, "", "")
-            {
-               
-            };
-
-            this.context.Donors.Add(donor);
-            this.context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, UpdateDonnorInputModel model)
         {
+            var result = _donorService.Update(model);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+
+            var result = _donorService.Delete(id);
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
 
             return NoContent();
         }

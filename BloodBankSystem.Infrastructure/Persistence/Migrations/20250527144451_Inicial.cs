@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BloodBankSystem.API.Persistence.Migrations
+namespace BloodBankSystem.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class Inicial : Migration
