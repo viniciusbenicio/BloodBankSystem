@@ -5,7 +5,7 @@ namespace BloodBankSystem.Core;
 public class Donor : BaseEntity
 {
     protected Donor() { }
-    public Donor(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor) : base()
+    public Donor(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor, string street, string city, string state, string zipCode) : base()
     {
         FullName = fullName;
         Email = email;
@@ -14,9 +14,8 @@ public class Donor : BaseEntity
         Weight = weight;
         BloodType = bloodType;
         HRFactor = hRFactor;
-
         Donations = [];
-        //Address = new();
+        Address = new Address(street, city, state, zipCode);
     }
 
     public string FullName { get; private set; }
@@ -29,9 +28,14 @@ public class Donor : BaseEntity
     public List<Donation> Donations { get; private set; }
     public Address Address { get; private set; }
 
-    public void Update(string fullName, string email)
+    public void Update(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hrFactor)
     {
         FullName = fullName;
         Email = email;
+        DateOfBirth = dateOfBirth;
+        Gender = gender;
+        Weight = weight;
+        BloodType = bloodType;
+        HRFactor = hrFactor;
     }
 }

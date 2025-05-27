@@ -46,6 +46,16 @@ namespace BloodBankSystem.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
         }
 
+        [HttpPost("{id}")]
+        public IActionResult PostAddress(CreateDonorAddressInputModel model)
+        {
+            //var result = _donorService.Insert(model);
+
+            //return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+
+            return Ok();
+        }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, UpdateDonnorInputModel model)
         {

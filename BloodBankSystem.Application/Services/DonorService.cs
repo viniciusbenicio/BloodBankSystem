@@ -28,7 +28,7 @@ namespace BloodBankSystem.Application.Services
             var donor = _context.Donors
                 .Include(d => d.Donations)
                 .Include(d => d.Address)
-                .SingleOrDefault(d => d.Id == id);
+                .FirstOrDefault(d => d.Id == id && !d.IsDeleted);
 
             if (donor is null)
             {
@@ -51,14 +51,14 @@ namespace BloodBankSystem.Application.Services
 
         public ResultViewModel Update(UpdateDonnorInputModel model)
         {
-            var donor = _context.Donors.FirstOrDefault(d => d.Id == model.DonorId);
+            var donor = _context.Donors.FirstOrDefault(d => d.Id == model.Id);
 
             if (donor is null)
             {
                 return ResultViewModel.Error("Doador não existe");
             }
 
-            donor.Update("", "");
+            donor.Update(model.FullName, model.Email, model.DateOfBirth, model.Gender, model.Weight, model.BloodType, model.HRFactor);
             _context.Donors.Update(donor);
             _context.SaveChanges();
 

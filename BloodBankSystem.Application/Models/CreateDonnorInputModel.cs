@@ -13,7 +13,11 @@ public class CreateDonnorInputModel
     public double Weight { get;  set; }
     public string BloodType { get;  set; }
     public string HRFactor { get;  set; }
-
+    public string Street { get; set; }
+    public string City { get; set; }
+    public string State { get; set; }
+    public string ZipCode { get; set; }
+   
     public Donor ToEntity()
-          => new(FullName, Email, DateOfBirth, Gender, Weight, BloodType, HRFactor);
+          => new(FullName, Email, DateOfBirth, Gender, Weight, BloodType, HRFactor, Street, City, State, ZipCode);
 }

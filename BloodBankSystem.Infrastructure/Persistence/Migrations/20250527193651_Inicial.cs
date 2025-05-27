@@ -19,7 +19,9 @@ namespace BloodBankSystem.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BloodType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HRFactor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    QuantityML = table.Column<int>(type: "int", nullable: false)
+                    QuantityML = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +59,9 @@ namespace BloodBankSystem.Infrastructure.Persistence.Migrations
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DonorId = table.Column<int>(type: "int", nullable: false)
+                    DonorId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,7 +82,9 @@ namespace BloodBankSystem.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     QuantityML = table.Column<int>(type: "int", nullable: false),
-                    DonorId = table.Column<int>(type: "int", nullable: false)
+                    DonorId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

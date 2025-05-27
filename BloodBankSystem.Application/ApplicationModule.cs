@@ -14,6 +14,8 @@ namespace BloodBankSystem.Application
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IDonorService, DonorService>();
+            services.AddScoped<IBloodStockService, BloodStockService>();
+            services.AddScoped<IDonationService, DonationService>();
             return services;
         }
 
