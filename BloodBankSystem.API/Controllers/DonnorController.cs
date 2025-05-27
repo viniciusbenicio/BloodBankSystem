@@ -1,4 +1,6 @@
-﻿using BloodBankSystem.API.Models;
+﻿using BloodBankSystem.API.Entities;
+using BloodBankSystem.API.Entities.Persistence;
+using BloodBankSystem.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBankSystem.API.Controllers
@@ -8,11 +10,18 @@ namespace BloodBankSystem.API.Controllers
     [Route("api/donors")]
     public class DonnorController : ControllerBase
     {
+        private readonly BloodBankSystemDBContext context;
+        public DonnorController(BloodBankSystemDBContext context)
+        {
+            this.context = context;
+        }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+
+            var teste = this.context.Donors.FirstOrDefault();
+            return Ok(teste);
 
         }
 
@@ -26,6 +35,15 @@ namespace BloodBankSystem.API.Controllers
         [HttpPost]
         public IActionResult Post(CreateDonnorInputModel model)
         {
+
+            var donor = new Donor("TESTE", "", DateTime.Now, "", 1, "", "")
+            {
+               
+            };
+
+            this.context.Donors.Add(donor);
+            this.context.SaveChanges();
+
             return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
         }
 
