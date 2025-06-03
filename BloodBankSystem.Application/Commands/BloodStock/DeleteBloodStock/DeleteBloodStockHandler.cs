@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Commands.BloodStock.DeleteBloodStock
 {
-    public class DeleteBloodStockHandler : IRequestHandler<DeleteDonorCommand, ResultViewModel>
+    public class DeleteBloodStockHandler : IRequestHandler<DeleteBloodStockCommand, ResultViewModel>
     {
         private readonly BloodBankSystemDBContext _context;
         public DeleteBloodStockHandler(BloodBankSystemDBContext context)
         {
             _context = context;
         }
-        public async Task<ResultViewModel> Handle(DeleteDonorCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(DeleteBloodStockCommand request, CancellationToken cancellationToken)
         {
             var bloodStocks = await _context.BloodStocks.SingleOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
 
