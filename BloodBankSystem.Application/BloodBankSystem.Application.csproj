@@ -7,8 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BloodBankSystem.Core\BloodBankSystem.Core.csproj" />
     <ProjectReference Include="..\BloodBankSystem.Infrastructure\BloodBankSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\Donor\GetAllDonor\" />
+    <Folder Include="Queries\Donor\GetByIdDonor\" />
   </ItemGroup>
 
 </Project>
