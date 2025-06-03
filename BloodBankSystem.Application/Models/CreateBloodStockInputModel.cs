@@ -9,6 +9,6 @@ public class CreateBloodStockInputModel
     public int QuantityML { get; set; }
 
 
-    public BloodStock ToEntity()
+    public BloodBankSystem.Core.BloodStock ToEntity()
           => new(BloodType, HRFactor, QuantityML);
 }

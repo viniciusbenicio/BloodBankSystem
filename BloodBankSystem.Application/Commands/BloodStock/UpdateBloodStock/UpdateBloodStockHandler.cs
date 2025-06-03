@@ -1,19 +1,20 @@
-﻿using BloodBankSystem.Application.Models;
+﻿using BloodBankSystem.Application.Commands.BloodStock.UpdateBloodStock;
+using BloodBankSystem.Application.Models;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BloodBankSystem.Application.Commands.Donor.UpdateDonor
+namespace BloodBankSystem.Application.BloodStock.UpdateBloodStock
 {
-    public class UpdateDonorHandler : IRequestHandler<UpdateDonorCommand, ResultViewModel>
+    public class UpdateBloodStockHandler : IRequestHandler<UpdateBloodStockCommand, ResultViewModel>
     {
         private readonly BloodBankSystemDBContext _context;
-        public UpdateDonorHandler(BloodBankSystemDBContext context)
+        public UpdateBloodStockHandler(BloodBankSystemDBContext context)
         {
             _context = context;
         }
 
-        public async Task<ResultViewModel> Handle(UpdateDonorCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateBloodStockCommand request, CancellationToken cancellationToken)
         {
             var donor = await _context.Donors.FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
 

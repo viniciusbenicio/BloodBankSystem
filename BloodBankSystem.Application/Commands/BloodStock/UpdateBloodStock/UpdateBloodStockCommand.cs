@@ -1,11 +1,11 @@
 ﻿using BloodBankSystem.Application.Models;
 using MediatR;
 
-namespace BloodBankSystem.Application.Commands.Donor.UpdateDonor
+namespace BloodBankSystem.Application.Commands.BloodStock.UpdateBloodStock
 {
-    public class UpdateDonorCommand : IRequest<ResultViewModel>
+    public class UpdateBloodStockCommand : IRequest<ResultViewModel>
     {
-        public UpdateDonorCommand(int id, string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor)
+        public UpdateBloodStockCommand(int id, string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor)
         {
             Id = id;
             FullName = fullName;

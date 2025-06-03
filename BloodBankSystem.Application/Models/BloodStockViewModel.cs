@@ -15,7 +15,7 @@ namespace BloodBankSystem.Application.Models
         public string HRFactor { get; set; }
         public int QuantityML { get; set; }
 
-        public static BloodStockViewModel FromEntity(BloodStock entity)
+        public static BloodStockViewModel FromEntity(BloodBankSystem.Core.BloodStock entity)
            => new(entity.BloodType, entity.HRFactor, entity.QuantityML);
     }
 }

@@ -15,9 +15,4 @@
     <ProjectReference Include="..\BloodBankSystem.Infrastructure\BloodBankSystem.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\Donor\GetAllDonor\" />
-    <Folder Include="Queries\Donor\GetByIdDonor\" />
-  </ItemGroup>
-
 </Project>

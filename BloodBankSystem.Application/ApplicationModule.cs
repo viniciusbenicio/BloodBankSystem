@@ -1,4 +1,5 @@
-﻿using BloodBankSystem.Application.Services;
+﻿using BloodBankSystem.Application.Commands.Donor.CreateDonor;
+using BloodBankSystem.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BloodBankSystem.Application
@@ -8,6 +9,7 @@ namespace BloodBankSystem.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddServices();
+            services.AddHandlers();
             return services;
         }
 
@@ -16,6 +18,14 @@ namespace BloodBankSystem.Application
             services.AddScoped<IDonorService, DonorService>();
             services.AddScoped<IBloodStockService, BloodStockService>();
             services.AddScoped<IDonationService, DonationService>();
+            return services;
+        }
+
+        private static IServiceCollection AddHandlers(this IServiceCollection services)
+        {
+            services.AddMediatR(config =>
+                                config.RegisterServicesFromAssemblyContaining<CreateDonorCommand>()
+                                );
             return services;
         }
 
