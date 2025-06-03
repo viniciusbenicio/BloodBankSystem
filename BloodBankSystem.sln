@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodBankSystem.API", "BloodBankSystem.API\BloodBankSystem.API.csproj", "{808AB84D-A7BA-425B-A597-EC404D07193C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloodBankSystem", "BloodBankSystem.API\BloodBankSystem.API.csproj", "{808AB84D-A7BA-425B-A597-EC404D07193C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodBankSystem.Core", "BloodBankSystem.Core\BloodBankSystem.Core.csproj", "{5C6A6431-0659-4D51-8568-93ABBC2EB393}"
 EndProject
