@@ -1,5 +1,7 @@
 ﻿using BloodBankSystem.Application.Models;
+using BloodBankSystem.Application.Queries.Donor.GetAllDonor;
 using BloodBankSystem.Application.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBankSystem.API.Controllers
@@ -9,18 +11,23 @@ namespace BloodBankSystem.API.Controllers
     public class DonationController : ControllerBase
     {
         private readonly IDonationService _donationService;
+        private readonly IMediator _mediator;
 
-        public DonationController(IDonationService donationService)
+        public DonationController(IDonationService donationService, IMediator mediator)
         {
             _donationService = donationService;
-
+            _mediator = mediator;
         }
 
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var result = _donationService.GetAll();
+            //var result = _donationService.GetAll();
+
+            var query = new GetAllDonorsQuery();
+
+            var result = await _mediator.Send(query);
 
             return Ok(result);
         }
