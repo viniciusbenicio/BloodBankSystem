@@ -1,6 +1,9 @@
-﻿using BloodBankSystem.Application.Models;
+﻿using BloodBankSystem.Application.Commands.Donation.DeleteDonation;
+using BloodBankSystem.Application.Commands.Donor.CreateDonor;
+using BloodBankSystem.Application.Commands.Donor.DeleteDonor;
+using BloodBankSystem.Application.Commands.Donor.UpdateDonor;
 using BloodBankSystem.Application.Queries.Donor.GetAllDonor;
-using BloodBankSystem.Application.Services;
+using BloodBankSystem.Application.Queries.Donor.GetByIdDonor;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +14,15 @@ namespace BloodBankSystem.API.Controllers
     [Route("api/donors")]
     public class DonnorController : ControllerBase
     {
-        private readonly IDonorService _donorService;
         private readonly IMediator _mediator;
-        public DonnorController(IDonorService donorService, IMediator mediator)
+        public DonnorController(IMediator mediator)
         {
-            _donorService = donorService;
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string search = "")
         {
-            //var result = _donorService.GetAll();
-
             var query = new GetAllDonorsQuery();
 
             var result = await _mediator.Send(query);
@@ -33,9 +32,9 @@ namespace BloodBankSystem.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = _donorService.GetById(id);
+            var result = await _mediator.Send(new GetByIdDonorQuery(id));
 
             if (!result.IsSuccess)
             {
@@ -47,27 +46,18 @@ namespace BloodBankSystem.API.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(CreateDonnorInputModel model)
+        public async Task<IActionResult> Post(CreateDonorCommand command)
         {
-            var result = _donorService.Insert(model);
+            var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
+            return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }
-
-        [HttpPost("{id}")]
-        public IActionResult PostAddress(CreateDonorAddressInputModel model)
-        {
-            //var result = _donorService.Insert(model);
-
-            //return CreatedAtAction(nameof(GetById), new { id = result.Data }, model);
-
-            return Ok();
-        }
+       
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, UpdateDonnorInputModel model)
+        public async Task<IActionResult> Put(int id, UpdateDonorCommand command)
         {
-            var result = _donorService.Update(model);
+            var result = await _mediator.Send(command);
 
             if (!result.IsSuccess)
             {
@@ -78,10 +68,9 @@ namespace BloodBankSystem.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-
-            var result = _donorService.Delete(id);
+            var result = await _mediator.Send(new DeleteDonorCommand(id));
 
             if (!result.IsSuccess)
             {
