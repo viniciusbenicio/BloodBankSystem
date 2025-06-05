@@ -1,20 +1,19 @@
 ﻿using BloodBankSystem.Application.Models;
-using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Core.Repositores;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Commands.Donation.UpdateDonation
 {
     public class UpdateDonationHandler : IRequestHandler<UpdateDonationCommand, ResultViewModel>
     {
-        private readonly BloodBankSystemDBContext _context;
-        public UpdateDonationHandler(BloodBankSystemDBContext context)
+        private readonly IDonationRepository _donationRepository;
+        public UpdateDonationHandler(IDonationRepository donationRepository)
         {
-            _context = context;
+            _donationRepository = donationRepository;
         }
         public async Task<ResultViewModel> Handle(UpdateDonationCommand request, CancellationToken cancellationToken)
         {
-            var donation = await _context.Donations.FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
+            var donation = await _donationRepository.GetById(request.Id);
 
             if (donation is null)
             {
@@ -22,8 +21,7 @@ namespace BloodBankSystem.Application.Commands.Donation.UpdateDonation
             }
 
             donation.Update(request.QuantityML);
-            _context.Donations.Update(donation);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _donationRepository.Update(donation);
 
             return ResultViewModel.Success();
         }

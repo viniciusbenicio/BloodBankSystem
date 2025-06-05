@@ -1,20 +1,20 @@
 ﻿using BloodBankSystem.Application.Models;
-using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Core.Repositores;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Commands.BloodStock.DeleteBloodStock
 {
     public class DeleteBloodStockHandler : IRequestHandler<DeleteBloodStockCommand, ResultViewModel>
     {
-        private readonly BloodBankSystemDBContext _context;
-        public DeleteBloodStockHandler(BloodBankSystemDBContext context)
+        private readonly IBloodStockRepository _bloodStockRepository;
+
+        public DeleteBloodStockHandler(IBloodStockRepository bloodStockRepository)
         {
-            _context = context;
+            _bloodStockRepository = bloodStockRepository;
         }
         public async Task<ResultViewModel> Handle(DeleteBloodStockCommand request, CancellationToken cancellationToken)
         {
-            var bloodStocks = await _context.BloodStocks.SingleOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
+            var bloodStocks = await _bloodStockRepository.GetById(request.Id);
 
             if (bloodStocks is null)
             {
@@ -22,8 +22,7 @@ namespace BloodBankSystem.Application.Commands.BloodStock.DeleteBloodStock
             }
 
             bloodStocks.SetAsDeleted();
-            _context.BloodStocks.Update(bloodStocks);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _bloodStockRepository.Update(bloodStocks);
 
             return ResultViewModel.Success();
         }

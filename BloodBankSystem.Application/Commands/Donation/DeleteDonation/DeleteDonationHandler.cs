@@ -1,23 +1,21 @@
-﻿using BloodBankSystem.Application.Commands.Donation.CreateDonation;
-using BloodBankSystem.Application.Models;
-using BloodBankSystem.Infrastructure.Entities.Persistence;
+﻿using BloodBankSystem.Application.Models;
+using BloodBankSystem.Core.Repositores;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Commands.Donation.DeleteDonation
 {
     public class DeleteDonationHandler : IRequestHandler<DeleteDonationCommand, ResultViewModel>
     {
 
-        private readonly BloodBankSystemDBContext _context;
-        public DeleteDonationHandler(BloodBankSystemDBContext context)
+       private readonly IDonationRepository _donationRepository;
+        public DeleteDonationHandler(IDonationRepository donationRepository)
         {
-            _context = context;
+            _donationRepository = donationRepository;
         }
 
         public async Task<ResultViewModel> Handle(DeleteDonationCommand request, CancellationToken cancellationToken)
         {
-            var donation = await _context.Donations.SingleOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
+            var donation = await _donationRepository.GetById(request.Id);
 
             if (donation is null)
             {
@@ -25,8 +23,7 @@ namespace BloodBankSystem.Application.Commands.Donation.DeleteDonation
             }
 
             donation.SetAsDeleted();
-            _context.Donations.Update(donation);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _donationRepository.Update(donation);
 
             return ResultViewModel.Success();
         }

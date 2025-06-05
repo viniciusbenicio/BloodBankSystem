@@ -1,21 +1,21 @@
 ﻿using BloodBankSystem.Application.Models;
-using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Core.Repositores;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Queries.Donation.GetByIdDonation
 {
     public class GetByIdDonationHandler : IRequestHandler<GetByIdDonationQuery, ResultViewModel<DonationViewModel>>
     {
-        private readonly BloodBankSystemDBContext _context;
-        public GetByIdDonationHandler(BloodBankSystemDBContext context)
+        private readonly IDonationRepository _donationRepository;
+
+        public GetByIdDonationHandler(IDonationRepository donationRepository)
         {
-            _context = context;
+            _donationRepository = donationRepository;
         }
 
         public async Task<ResultViewModel<DonationViewModel>> Handle(GetByIdDonationQuery request, CancellationToken cancellationToken)
         {
-            var donation = await _context.Donations.FirstOrDefaultAsync(d => d.Id == request.Id && !d.IsDeleted, cancellationToken: cancellationToken);
+            var donation = await _donationRepository.GetById(request.Id);
 
             if (donation is null)
             {

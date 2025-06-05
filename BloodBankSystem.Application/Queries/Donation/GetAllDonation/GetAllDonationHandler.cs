@@ -1,21 +1,22 @@
 ﻿using BloodBankSystem.Application.Models;
+using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Queries.Donation.GetAllDonation
 {
     public class GetAllDonationHandler : IRequestHandler<GetAllDonationQuery, ResultViewModel<List<DonationViewModel>>>
     {
-        private readonly BloodBankSystemDBContext _context;
-        public GetAllDonationHandler(BloodBankSystemDBContext context)
+        private readonly IDonationRepository _donationRepository;
+
+        public GetAllDonationHandler(BloodBankSystemDBContext context, IDonationRepository donationRepository)
         {
-            _context = context;
+            _donationRepository = donationRepository;
         }
 
         public async Task<ResultViewModel<List<DonationViewModel>>> Handle(GetAllDonationQuery request, CancellationToken cancellationToken)
         {
-            var donation = await _context.Donations.Where(d => !d.IsDeleted).ToListAsync(cancellationToken: cancellationToken);
+            var donation = await _donationRepository.GetAll();
 
             var model = donation.Select(DonationViewModel.FromEntity).ToList();
 

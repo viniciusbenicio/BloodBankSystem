@@ -1,4 +1,5 @@
 ﻿using BloodBankSystem.Application.Models;
+using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -7,15 +8,15 @@ namespace BloodBankSystem.Application.Commands.Donor.UpdateDonor
 {
     public class UpdateDonorHandler : IRequestHandler<UpdateDonorCommand, ResultViewModel>
     {
-        private readonly BloodBankSystemDBContext _context;
-        public UpdateDonorHandler(BloodBankSystemDBContext context)
+        private readonly IDonorRepository _donorRepository;
+        public UpdateDonorHandler(IDonorRepository donorRepository)
         {
-            _context = context;
+            _donorRepository = donorRepository;
         }
 
         public async Task<ResultViewModel> Handle(UpdateDonorCommand request, CancellationToken cancellationToken)
         {
-            var donor = await _context.Donors.FirstOrDefaultAsync(d => d.Id == request.Id, cancellationToken: cancellationToken);
+            var donor = await _donorRepository.GetById(request.Id);
 
             if (donor is null)
             {
@@ -23,8 +24,7 @@ namespace BloodBankSystem.Application.Commands.Donor.UpdateDonor
             }
 
             donor.Update(request.FullName, request.Email, request.DateOfBirth, request.Gender, request.Weight, request.BloodType, request.HRFactor);
-            _context.Donors.Update(donor);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _donorRepository.Update(donor);
 
             return ResultViewModel.Success();
         }

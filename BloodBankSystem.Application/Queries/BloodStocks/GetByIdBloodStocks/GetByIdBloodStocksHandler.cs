@@ -1,22 +1,22 @@
 ﻿using BloodBankSystem.Application.Models;
-using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Core.Repositores;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BloodBankSystem.Application.Queries.BloodStocks.GetByIdBloodStocks
 {
     public class GetByIdBloodStocksHandler : IRequestHandler<GetByIdBloodStocksQuery, ResultViewModel<BloodStockViewModel>>
     {
 
-        private readonly BloodBankSystemDBContext _context;
-        public GetByIdBloodStocksHandler(BloodBankSystemDBContext context)
+        private readonly IBloodStockRepository _bloodStockRepository;
+
+        public GetByIdBloodStocksHandler(IBloodStockRepository bloodStockRepository)
         {
-            _context = context;
+            _bloodStockRepository = bloodStockRepository;
         }
 
         public async Task<ResultViewModel<BloodStockViewModel>> Handle(GetByIdBloodStocksQuery request, CancellationToken cancellationToken)
         {
-            var bloodStock = await _context.BloodStocks.FirstOrDefaultAsync(d => d.Id == request.Id && !d.IsDeleted, cancellationToken: cancellationToken);
+            var bloodStock = await _bloodStockRepository.GetById(request.Id);
 
             if (bloodStock is null)
             {
