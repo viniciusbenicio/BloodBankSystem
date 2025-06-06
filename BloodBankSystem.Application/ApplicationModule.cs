@@ -1,4 +1,7 @@
 ﻿using BloodBankSystem.Application.Commands.Donor.CreateDonor;
+using BloodBankSystem.Application.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BloodBankSystem.Application
@@ -7,7 +10,7 @@ namespace BloodBankSystem.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddHandlers();
+            services.AddHandlers().AddValidation();
             return services;
         }
 
@@ -20,6 +23,13 @@ namespace BloodBankSystem.Application
             return services;
         }
 
+        private static IServiceCollection AddValidation(this IServiceCollection services)
+        {
+            services.AddFluentValidationAutoValidation()
+                    .AddValidatorsFromAssemblyContaining<CreateDonorValidator>();
+
+            return services;
+        }
 
     }
 }
