@@ -1,8 +1,11 @@
 ﻿using BloodBankSystem.Application.Commands.Donor.CreateDonor;
 using BloodBankSystem.Application.Validators;
+using BloodBankSystem.Core.Services;
+using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel.Design;
 
 namespace BloodBankSystem.Application
 {
@@ -27,6 +30,11 @@ namespace BloodBankSystem.Application
         {
             services.AddFluentValidationAutoValidation()
                     .AddValidatorsFromAssemblyContaining<CreateDonorValidator>();
+
+
+            services.AddHttpClient<ICEPService, ViaCepService>();
+
+
 
             return services;
         }

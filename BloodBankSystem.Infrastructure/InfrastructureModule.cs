@@ -1,5 +1,7 @@
 ﻿using BloodBankSystem.Core.Repositores;
+using BloodBankSystem.Core.Services;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using BloodBankSystem.Infrastructure.Persistence.Repositores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,7 @@ namespace BloodBankSystem.Infrastructure
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddScoped<IBloodStockRepository, BloodStockRepository>();
+            services.AddScoped<ICEPService, ViaCepService>();
 
             return services;
         }
