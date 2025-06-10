@@ -2,6 +2,7 @@
 using BloodBankSystem.Application.Commands.BloodStock.DeleteBloodStock;
 using BloodBankSystem.Application.Commands.BloodStock.UpdateBloodStock;
 using BloodBankSystem.Application.Queries.BloodStocks.GetByIdBloodStocks;
+using BloodBankSystem.Application.Queries.Donation.GetAllDonation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace BloodBankSystem.Application.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var query = new GetAllBloodStockQuery();
+            var query = new GetAllBloodStocksQuery();
 
             var result = await _mediator.Send(query);
 
