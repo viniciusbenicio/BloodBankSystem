@@ -20,9 +20,17 @@ namespace BloodBankSystem.Application.Commands.Donor.CreateDonor
         {
             var donor = request.ToEntity();
 
+            var donors = await _donorRepository.GetAll();
+
+            var existDonorEmail = donors.FirstOrDefault(x => x.Email == request.Email);
+
+            if (existDonorEmail is not null)
+                return ResultViewModel<int>.Error($"Já existe um Doador Cadastrado com este e-mail: {request.Email}");
+
+
             var cepResult = await ICEPService.GetByCepAsync(request.ZipCode);
 
-            if(cepResult != null)
+            if (cepResult != null)
             {
                 request.Street = cepResult.logradouro;
                 request.City = cepResult.localidade;
