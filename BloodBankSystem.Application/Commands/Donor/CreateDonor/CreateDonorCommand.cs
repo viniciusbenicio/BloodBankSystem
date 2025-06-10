@@ -5,7 +5,7 @@ namespace BloodBankSystem.Application.Commands.Donor.CreateDonor
 {
     public class CreateDonorCommand : IRequest<ResultViewModel<int>>
     {
-        public CreateDonorCommand(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor, string street, string city, string state, string zipCode)
+        public CreateDonorCommand(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor, string zipCode)
         {
             FullName = fullName;
             Email = email;
@@ -14,9 +14,6 @@ namespace BloodBankSystem.Application.Commands.Donor.CreateDonor
             Weight = weight;
             BloodType = bloodType;
             HRFactor = hRFactor;
-            Street = street;
-            City = city;
-            State = state;
             ZipCode = zipCode;
         }
 
