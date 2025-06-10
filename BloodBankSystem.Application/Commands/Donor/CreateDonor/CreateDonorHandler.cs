@@ -2,6 +2,7 @@
 using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Core.Services;
 using MediatR;
+using System.IO;
 
 namespace BloodBankSystem.Application.Commands.Donor.CreateDonor
 {
@@ -19,8 +20,15 @@ namespace BloodBankSystem.Application.Commands.Donor.CreateDonor
         {
             var donor = request.ToEntity();
 
+            var cepResult = await ICEPService.GetByCepAsync(request.ZipCode);
 
-            var retorno = await ICEPService.GetByCepAsync(request.ZipCode);
+            if(cepResult != null)
+            {
+                request.Street = cepResult.logradouro;
+                request.City = cepResult.localidade;
+                request.State = cepResult.uf;
+            }
+
             await _donorRepository.Add(donor);
 
             return ResultViewModel<int>.Success(donor.Id);

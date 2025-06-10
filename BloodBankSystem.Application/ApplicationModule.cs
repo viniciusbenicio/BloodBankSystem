@@ -13,7 +13,7 @@ namespace BloodBankSystem.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddHandlers().AddValidation();
+            services.AddHandlers().AddValidation().AddExternalServices();
             return services;
         }
 
@@ -37,6 +37,14 @@ namespace BloodBankSystem.Application
 
 
             return services;
+        }
+
+        private static IServiceCollection AddExternalServices(this IServiceCollection services)
+        {
+            services.AddHttpClient<ICEPService, ViaCepService>();
+
+            return services;
+
         }
 
     }

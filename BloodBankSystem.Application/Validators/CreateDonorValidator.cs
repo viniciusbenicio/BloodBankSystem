@@ -40,17 +40,7 @@ namespace BloodBankSystem.Application.Validators
                 .Must(rh => rh == "+" || rh == "-")
                 .WithMessage("Fator RH deve ser '+' ou '-'");
 
-            RuleFor(x => x.Street)
-                .NotEmpty().WithMessage("Rua obrigatória")
-                .MaximumLength(150).WithMessage("Tamanho máximo de 150 caracteres");
 
-            RuleFor(x => x.City)
-                .NotEmpty().WithMessage("Cidade obrigatória")
-                .MaximumLength(100).WithMessage("Tamanho máximo de 100 caracteres");
-
-            RuleFor(x => x.State)
-                .NotEmpty().WithMessage("Estado obrigatório")
-                .Length(2).WithMessage("Estado deve conter 2 caracteres (UF)");
 
             RuleFor(x => x.ZipCode)
                 .NotEmpty().WithMessage("CEP obrigatório")

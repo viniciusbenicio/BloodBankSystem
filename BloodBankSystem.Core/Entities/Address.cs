@@ -19,8 +19,9 @@ public class Address : BaseEntity
     public int DonorId { get; set; }
     public Donor Donor { get; set; }
 
-    public void Update(string street, string city)
+    public void Update(string street, string city, string state)
     {
+        State = state;
         Street = street;
         City = city;
     }
