@@ -36,4 +36,40 @@ public class Donor : BaseEntity
         BloodType = bloodType;
         HRFactor = hrFactor;
     }
+
+    public bool IsEligibleForRegistrationOnly(DateTime dateOfBirth)
+    {
+        var age = CalculateAge(dateOfBirth);
+
+        if (age < 18)
+            return false;
+
+        return true;
+    }
+
+    public int CalculateAge(DateTime dateOfBirth)
+    {
+        var today = DateTime.Now;
+        var age = today.Year - dateOfBirth.Year;
+
+        return age;
+    }
+
+    public bool CalculateWeight(double weight)
+    {
+        if (weight < 50)
+            return false;
+
+        return true;
+    }
+
+    public bool isBelowMinimumDonationAmount (int donationML)
+    {
+        if (donationML >= 420 && donationML <= 470)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
