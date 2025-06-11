@@ -63,7 +63,7 @@ public class Donor : BaseEntity
         return true;
     }
 
-    public bool isBelowMinimumDonationAmount (int donationML)
+    public bool isBelowMinimumDonationAmount(int donationML)
     {
         if (donationML >= 420 && donationML <= 470)
         {
@@ -72,4 +72,17 @@ public class Donor : BaseEntity
 
         return false;
     }
+
+    public bool isCanDonateGender(DateTime lastDonation, string gender)
+    {
+        var today = DateTime.Now.Date;
+        var daysLastDonation = (today - lastDonation.Date).Days;
+
+        if (gender.Equals("Masculino") && daysLastDonation >= 60 || gender.Equals("Feminino") && daysLastDonation >= 90)
+            return true;
+
+        return false;
+
+    }
+
 }
