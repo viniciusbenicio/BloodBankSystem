@@ -3,6 +3,7 @@ using BloodBankSystem.Application.Commands.Donation.DeleteDonation;
 using BloodBankSystem.Application.Commands.Donation.UpdateDonation;
 using BloodBankSystem.Application.Queries.Donation.GetAllDonation;
 using BloodBankSystem.Application.Queries.Donation.GetByIdDonation;
+using BloodBankSystem.Application.Queries.Donation.GetDonationsByDonorId;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -78,5 +79,20 @@ namespace BloodBankSystem.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("donor/{donorId}")]
+        public async Task<IActionResult> GetDonationsByDonorId(int donorId)
+        {
+            var result = await _mediator.Send(new GetDonationsByDonorIdQuery(donorId));
+
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result.Message);
+            }
+
+
+            return Ok(new { success = result.IsSuccess, message = result.Message, data = result.Data });
+        }
+
     }
 }

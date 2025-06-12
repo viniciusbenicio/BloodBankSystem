@@ -25,7 +25,7 @@ namespace BloodBankSystem.Application.Commands.Donation.CreateDonation
             bool isDonationNotAllowed = donor.IsEligibleForRegistrationOnly(donor.DateOfBirth);
             bool isWeightNotAllowed = donor.CalculateWeight(donor.Weight);
             bool isBelowMinimumDonationAmount = donor.isBelowMinimumDonationAmount(request.QuantityML);
-            var isDonationAllowedGender = donor.isCanDonateGender(lastDonations.DonationDate, donor.Gender);
+            var isDonationAllowedGender = donor.isCanDonateGender(lastDonations?.DonationDate, donor.Gender);
 
             if (!isDonationNotAllowed)
                 return ResultViewModel<int>.Error($"O Doador é menor de idade então não pode realizar doação");
