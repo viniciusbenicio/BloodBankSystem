@@ -17,10 +17,13 @@ public class BloodStock : BaseEntity
     public int QuantityML { get; set; }
 
 
-    public void Update(string bloodType, string hRFactor, int quantityML)
+    public void UpdateBloodStock(string bloodType, string hRFactor, int quantityML)
     {
-        BloodType = bloodType;
-        HRFactor = hRFactor;
-        QuantityML = quantityML;
+        if(BloodType == bloodType && HRFactor == hRFactor && quantityML > 0)
+        {
+            QuantityML += quantityML;
+
+        }
+
     }
 }

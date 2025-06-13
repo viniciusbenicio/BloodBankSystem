@@ -22,7 +22,7 @@ namespace BloodBankSystem.Application.BloodStock.UpdateBloodStock
                 return ResultViewModel.Error("Doador não existe");
             }
 
-            donor.Update(request.BloodType, request.HRFactor, request.QuantityML);
+            donor.UpdateBloodStock(request.BloodType, request.HRFactor, request.QuantityML);
             await _bloodStockRepository.Update(donor);
 
             return ResultViewModel.Success();
