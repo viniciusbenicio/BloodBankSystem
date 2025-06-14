@@ -1,6 +1,8 @@
 # 🩸 Blood Bank System API
 
-API desenvolvida em **ASP.NET Core 8**, utilizando **Entity Framework Core** e **SQL Server** para gerenciamento de um sistema de banco de sangue. O projeto segue princípios da **Arquitetura Limpa**, utilizando **InputModels** e **ViewModels** para separar modelos de entrada e saída de dados.
+API desenvolvida em **ASP.NET Core 8**, utilizando **Entity Framework Core** e **SQL Server** para gerenciamento de um sistema de banco de sangue. O projeto segue princípios da **Arquitetura Limpa**, separando responsabilidades em diferentes camadas e utilizando **InputModels** e **ViewModels** para entrada e saída de dados.
+
+---
 
 ## ✅ Tecnologias e Ferramentas Utilizadas
 
@@ -9,85 +11,99 @@ API desenvolvida em **ASP.NET Core 8**, utilizando **Entity Framework Core** e *
 * **SQL Server**
 * **Arquitetura Limpa**
 
-  * Separação de camadas: Core, Application, Infrastructure e API.
-* **InputModels** e **ViewModels** para entrada e saída de dados.
+  * Camadas: `Core`, `Application`, `Infrastructure`, `API`
+* **InputModels** e **ViewModels**
+* **CQRS**
+* **Padrão Repository**
+* **Unit of Work**
+* **FluentValidation**
+* **Swagger**
+* **Integração com API ViaCEP**
+
+---
 
 ## 🔧 Estrutura da API
 
-A API possui endpoints para gerenciamento das seguintes entidades:
+A API possui endpoints RESTful organizados para as seguintes entidades:
 
-* **BloodStock** (`/api/bloodStocks`)
+* **Donor** (`/api/donors`)
 * **Donation** (`/api/donations`)
-* **Donnor** (`/api/donors`)
+* **BloodStock** (`/api/bloodStocks`)
 
-Cada entidade possui operações de **CRUD** completas, utilizando padrões RESTful.
+Cada entidade possui operações de **CRUD** completas, com validações e regras de negócio aplicadas.
+
+---
 
 ## 📦 Modelos de Dados
 
-Os modelos são organizados da seguinte forma:
+* `InputModels`: usados para entrada de dados via API.
+* `ViewModels`: utilizados para retornar dados formatados na resposta.
 
-* `InputModels`: Modelos utilizados para entrada de dados.
-* `ViewModels`: Modelos utilizados para retorno e exibição de dados.
+---
 
-## 🏗️ Funcionalidades Implementadas
+## ✅ Funcionalidades Implementadas
 
-* Operações CRUD para:
+* Cadastro, edição, consulta e exclusão de:
 
-  * Estoque de sangue
-  * Doações
   * Doadores
-* Separação de responsabilidades utilizando a **Arquitetura Limpa**.
-* Configuração inicial de banco de dados utilizando **Entity Framework Core**.
+  * Doações
+  * Estoque de sangue
+* **Validações de Regras de Negócio**, como:
 
-## 🚧 Funcionalidades Futuras
+  * Impedir cadastro com e-mails duplicados
+  * Menores de idade podem se cadastrar, mas **não** doar
+  * Peso mínimo: **50kg**
+  * Mulheres só podem doar a cada **90 dias**
+  * Homens só podem doar a cada **60 dias**
+  * Volume da doação entre **420ml e 470ml**
+* Atualização automática do estoque de sangue após doação
+* Consulta ao histórico de doações de cada doador
+* Integração com **API ViaCEP** para preenchimento automático de endereço
+* Aplicação do padrão **Repository**
+* Separação de comandos e consultas usando **CQRS**
+* Validações aplicadas via **FluentValidation**
 
-O projeto está em constante evolução, com as seguintes implementações previstas:
 
-* ✅ **Unit of Work** para gestão de transações.
-* ✅ **Padrão Repository** para abstração de acesso a dados.
-* ✅ **CQRS** (Command Query Responsibility Segregation) para separação clara entre operações de leitura e escrita.
-* ✅ **Testes Unitários** para garantir qualidade e confiabilidade do código.
-* ✅ **FluentValidation** para validação fluente de modelos de entrada.
-* ✅ **IEntityTypeConfiguration** para configuração das entidades via Fluent API no Entity Framework.
-* ✅ **Integração com Serviços Cloud**: A escolha do provedor de cloud ainda será definida conforme as necessidades do projeto.
-
-## 🏁 Como Executar
+## ▶️ Como Executar
 
 1. Clone o repositório:
 
 ```bash
-https://github.com/viniciusbenicio/BloodBankSystem.API.git
+git clone https://github.com/viniciusbenicio/BloodBankSystem.API.git
 ```
 
 2. Configure a string de conexão no arquivo `appsettings.json`:
 
 ```json
 {
-   "ConnectionStrings": {
-   "DefaultConnection": "Server=localhost,1433;Database=BloodBankDB;User ID=sa;Password=Api@pass!; TrustServerCertificate=True"
- }
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=BloodBankDB;User ID=sa;Password=Api@pass!;TrustServerCertificate=True"
+  }
 }
 ```
 
-3. Execute as migrações do banco de dados:
+3. Aplique as migrações do banco de dados:
 
 ```bash
 dotnet ef database update
 ```
 
-4. Inicie o projeto:
+4. Execute o projeto:
 
 ```bash
 dotnet run
 ```
 
-A API estará disponível em: `http://localhost:49578`.
+A API estará disponível em: `http://localhost:49578`
 
-## 📝 Documentação da API
+---
 
-A documentação da API está disponível via **Swagger** em:
+## 📘 Documentação da API
+
+Acesse via Swagger:
 
 ```
 http://localhost:49578/swagger
 ```
 
+---
