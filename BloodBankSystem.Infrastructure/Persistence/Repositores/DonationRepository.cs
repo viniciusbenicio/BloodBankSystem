@@ -40,9 +40,9 @@ namespace BloodBankSystem.Infrastructure.Persistence.Repositores
 
         }
 
-        public async Task<List<Donation>> GetDonationsByDonor(int donorId)
-        {
-            return await _context.Donations.Where(x => x.DonorId == donorId).Include(x => x.Donor).ToListAsync();
-        }
+        //public async Task<List<Donation>> GetDonationsByDonor(int donorId)
+        //{
+        //    return await _context.Donations.Where(x => x.DonorId == donorId).Include(x => x.Donor).ToListAsync();
+        //}
     }
 }

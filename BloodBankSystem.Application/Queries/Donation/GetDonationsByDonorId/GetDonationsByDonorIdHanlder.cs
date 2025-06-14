@@ -6,20 +6,17 @@ namespace BloodBankSystem.Application.Queries.Donation.GetDonationsByDonorId
 {
     public class GetDonationsByDonorIdHanlder : IRequestHandler<GetDonationsByDonorIdQuery, ResultViewModel<DonationByDonorViewModel>>
     {
-        private readonly IDonationRepository _donationRepository;
         private readonly IDonorRepository _donorRepository;
 
-        public GetDonationsByDonorIdHanlder(IDonationRepository donationRepository, IDonorRepository donorRepository)
+        public GetDonationsByDonorIdHanlder(IDonorRepository donorRepository)
         {
-            _donationRepository = donationRepository;
             _donorRepository = donorRepository;
         }
         public async Task<ResultViewModel<DonationByDonorViewModel>> Handle(GetDonationsByDonorIdQuery request, CancellationToken cancellationToken)
         {
             var donor = await _donorRepository.GetById(request.DonorId);
-            var donations = await _donationRepository.GetDonationsByDonor(request.DonorId);
 
-            var donationsViewModels = donations.Select(d => new DonationsViewModel
+            var donationsViewModels = donor.Donations.Select(d => new DonationsViewModel
             {
                 Id = d.Id,
                 QuantityML = d.QuantityML,
