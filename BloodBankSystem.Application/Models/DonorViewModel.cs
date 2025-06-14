@@ -4,7 +4,7 @@ namespace BloodBankSystem.Application.Models
 {
     public class DonorViewModel
     {
-        public DonorViewModel(string fullName, string email, DateTime dateOfBirth, string gender, double weight, string bloodType, string hRFactor)
+        public DonorViewModel(string fullName, string email, DateOnly dateOfBirth, string gender, double weight, string bloodType, string hRFactor)
         {
             FullName = fullName;
             Email = email;
@@ -17,7 +17,7 @@ namespace BloodBankSystem.Application.Models
 
         public string FullName { get; private set; }
         public string Email { get; private set; }
-        public DateTime DateOfBirth { get; private set; }
+        public DateOnly DateOfBirth { get; private set; }
         public string Gender { get; private set; }
         public double Weight { get; private set; }
         public string BloodType { get; private set; }

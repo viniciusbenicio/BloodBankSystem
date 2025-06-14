@@ -17,9 +17,7 @@ namespace BloodBankSystem.Application.Validators
                 .EmailAddress().WithMessage("E-mail inválido");
 
             RuleFor(x => x.DateOfBirth)
-                .NotEmpty().WithMessage("Data de nascimento obrigatória")
-                .LessThan(DateTime.Today).WithMessage("A data de nascimento deve ser no passado")
-                .Must(BeAtLeast18YearsOld).WithMessage("É necessário ter pelo menos 18 anos");
+                .NotEmpty().WithMessage("Data de nascimento obrigatória");
 
             RuleFor(x => x.Gender)
                 .NotEmpty().WithMessage("Sexo obrigatório")
