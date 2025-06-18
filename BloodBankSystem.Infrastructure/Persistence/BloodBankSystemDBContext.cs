@@ -1,5 +1,6 @@
 ﻿using BloodBankSystem.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace BloodBankSystem.Infrastructure.Entities.Persistence;
 
@@ -17,14 +18,7 @@ public class BloodBankSystemDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Donor>(d =>
-        {
-            d.HasKey(x => x.Id);
-            d.HasOne(x => x.Address).WithOne(x => x.Donor).HasForeignKey<Address>(x => x.DonorId);
-            d.HasMany(x => x.Donations).WithOne(x => x.Donor).HasForeignKey(x => x.DonorId).OnDelete(DeleteBehavior.Restrict);
-        });
-
-        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
 }
