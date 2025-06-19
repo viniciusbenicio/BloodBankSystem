@@ -30,6 +30,12 @@ namespace BloodBankSystem.Infrastructure
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddScoped<IBloodStockRepository, BloodStockRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddServicesExternal(this IServiceCollection services) 
+        { 
             services.AddScoped<ICEPService, ViaCepService>();
 
             return services;

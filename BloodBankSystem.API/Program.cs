@@ -11,11 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
        .AddInfraescrture(builder.Configuration)
-       .AddApplication();
+       .AddApplication()
+       .AddServicesExternal()
+       .AddExceptionHandler<ApiExceptionHandler>()
+       .AddProblemDetails()
+       .AddControllers();
 
-builder.Services.AddExceptionHandler<ApiExceptionHandler>();
-builder.Services.AddProblemDetails();
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(op =>
