@@ -29,7 +29,6 @@ namespace BloodBankSystem.Infrastructure.Persistence.Repositores
         public async Task<int> Add(BloodStock bloodStock)
         {
             await _context.BloodStocks.AddAsync(bloodStock);
-            await _context.SaveChangesAsync();
 
             return bloodStock.Id;
         }

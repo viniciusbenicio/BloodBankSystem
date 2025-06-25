@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
        .AddInfraescrture(builder.Configuration)
        .AddApplication()
+       .AddUnifOfWork()
        .AddServicesExternal()
        .AddExceptionHandler<ApiExceptionHandler>()
        .AddProblemDetails()

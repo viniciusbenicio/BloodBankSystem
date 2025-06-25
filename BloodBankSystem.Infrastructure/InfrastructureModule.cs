@@ -1,7 +1,9 @@
-﻿using BloodBankSystem.Core.Repositores;
+﻿using BloodBankSystem.Core;
+using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Core.Services;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
 using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
+using BloodBankSystem.Infrastructure.Persistence;
 using BloodBankSystem.Infrastructure.Persistence.Repositores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,9 +36,16 @@ namespace BloodBankSystem.Infrastructure
             return services;
         }
 
-        public static IServiceCollection AddServicesExternal(this IServiceCollection services) 
-        { 
+        public static IServiceCollection AddServicesExternal(this IServiceCollection services)
+        {
             services.AddScoped<ICEPService, ViaCepService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddUnifOfWork(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
