@@ -1,6 +1,7 @@
 using BloodBankSystem.API.ExceptionHandler;
 using BloodBankSystem.Application;
 using BloodBankSystem.Infrastructure;
+using Hangfire;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -47,6 +48,9 @@ builder.Services.AddSwaggerGen(op =>
 
 
 var app = builder.Build();
+
+app.UseHangfireDashboard();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

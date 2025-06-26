@@ -1,10 +1,12 @@
 ﻿using BloodBankSystem.Core;
 using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Core.Services;
+using BloodBankSystem.Infrastructure.Core.Repositores;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
 using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using BloodBankSystem.Infrastructure.Persistence;
 using BloodBankSystem.Infrastructure.Persistence.Repositores;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +17,7 @@ namespace BloodBankSystem.Infrastructure
     {
         public static IServiceCollection AddInfraescrture(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddRepositories().AddData(configuration);
+            return services.AddRepositories().AddData(configuration).AddBackgroundServices(configuration);
         }
 
         public static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
@@ -32,6 +34,7 @@ namespace BloodBankSystem.Infrastructure
             services.AddScoped<IDonorRepository, DonorRepository>();
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddScoped<IBloodStockRepository, BloodStockRepository>();
+            services.AddScoped<IJobRepository, JobRepository>();
 
             return services;
         }
@@ -49,5 +52,19 @@ namespace BloodBankSystem.Infrastructure
 
             return services;
         }
+
+        public static IServiceCollection AddBackgroundServices(this IServiceCollection services, IConfiguration configuration)
+        {
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            services.AddHangfire((sp, config) =>
+            {
+                config.UseSqlServerStorage(connectionString);
+            });
+
+            return services;
+        }
+
     }
 }
