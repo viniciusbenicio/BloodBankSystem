@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using BloodBankSystem.Application.Job;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBankSystem.API.Controllers
@@ -10,7 +11,7 @@ namespace BloodBankSystem.API.Controllers
         [HttpGet("recurring")]
         public async Task<IActionResult> Get()
         {
-            RecurringJob.AddOrUpdate("job-simples", () => Console.WriteLine("Executando..."), "*/15 * * * * *");
+            RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
             return Ok();
         }
     }

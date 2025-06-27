@@ -11,5 +11,5 @@ BEGIN
 END
 GO
 
-// example de uso
-EXEC GetBloodStockBelowMinimum 'A', 5000
+--// example de uso
+--EXEC GetBloodStockBelowMinimum 'A', 5000
