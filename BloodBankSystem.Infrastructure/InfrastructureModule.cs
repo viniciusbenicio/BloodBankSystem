@@ -3,6 +3,7 @@ using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Core.Services;
 using BloodBankSystem.Infrastructure.Core.Repositores;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
+using BloodBankSystem.Infrastructure.ExternalServices.Email;
 using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using BloodBankSystem.Infrastructure.Persistence;
 using BloodBankSystem.Infrastructure.Persistence.Repositores;
@@ -42,6 +43,7 @@ namespace BloodBankSystem.Infrastructure
         public static IServiceCollection AddServicesExternal(this IServiceCollection services)
         {
             services.AddScoped<ICEPService, ViaCepService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             return services;
         }
@@ -62,6 +64,8 @@ namespace BloodBankSystem.Infrastructure
             {
                 config.UseSqlServerStorage(connectionString);
             });
+
+            services.AddHangfireServer();
 
             return services;
         }

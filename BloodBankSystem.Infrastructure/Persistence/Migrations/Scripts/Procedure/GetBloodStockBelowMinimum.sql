@@ -6,10 +6,12 @@ CREATE OR ALTER PROCEDURE GetBloodStockBelowMinimum
 AS
 BEGIN
     
-    SELECT * FROM BloodStocks AS BS
+    SELECT 
+	BS.Id,
+	BS.BloodType,
+	BS.HRFactor,
+	BS.QuantityML
+	FROM BloodStocks AS BS
 	WHERE BS.BloodType = @BloodType and BS.QuantityML <= @MinQuantity
 END
 GO
-
---// example de uso
---EXEC GetBloodStockBelowMinimum 'A', 5000

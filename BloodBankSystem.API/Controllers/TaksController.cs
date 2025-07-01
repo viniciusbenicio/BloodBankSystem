@@ -11,7 +11,15 @@ namespace BloodBankSystem.API.Controllers
         [HttpGet("recurring")]
         public async Task<IActionResult> Get()
         {
-            RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
+            // Usar no futuro para uma possivel dashboard.
+            try
+            {
+                RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
+
+            }catch(Exception ex)
+            {
+                var msg = ex.Message;
+            }
             return Ok();
         }
     }
