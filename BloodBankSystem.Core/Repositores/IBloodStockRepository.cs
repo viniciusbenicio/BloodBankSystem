@@ -1,4 +1,6 @@
-﻿namespace BloodBankSystem.Core.Repositores
+﻿using BloodBankSystem.Core.DTOs;
+
+namespace BloodBankSystem.Core.Repositores
 {
     public interface IBloodStockRepository
     {
@@ -7,5 +9,6 @@
         Task<bool> Exists(int id);
         Task<int> Add(BloodStock bloodStock);
         Task Update(BloodStock bloodStock);
+        List<BloodStockMinimumDTO> GetBloodStockBelowMinimum(int minQuantity);
     }
 }

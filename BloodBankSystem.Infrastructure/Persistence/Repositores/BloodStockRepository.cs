@@ -1,16 +1,25 @@
 ﻿using BloodBankSystem.Core;
+using BloodBankSystem.Core.DTOs;
 using BloodBankSystem.Core.Repositores;
 using BloodBankSystem.Infrastructure.Entities.Persistence;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace BloodBankSystem.Infrastructure.Persistence.Repositores
 {
     public class BloodStockRepository : IBloodStockRepository
     {
         private readonly BloodBankSystemDBContext _context;
-        public BloodStockRepository(BloodBankSystemDBContext context)
+        private readonly string _connectionString;
+
+        public BloodStockRepository(BloodBankSystemDBContext context, IConfiguration configuration)
         {
             _context = context;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+
         }
 
         public async Task<BloodStock> GetById(int id)
@@ -38,5 +47,19 @@ namespace BloodBankSystem.Infrastructure.Persistence.Repositores
             await _context.SaveChangesAsync();
 
         }
+
+        public List<BloodStockMinimumDTO> GetBloodStockBelowMinimum(int minQuantity)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var parametros = new
+            {
+                minQuantity
+            };
+
+            return connection.Query<BloodStockMinimumDTO>("GetBloodStockBelowMinimum", param: parametros, commandType: CommandType.StoredProcedure).ToList();
+
+        }
+
     }
 }

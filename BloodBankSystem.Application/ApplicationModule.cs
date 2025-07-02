@@ -1,11 +1,12 @@
 ﻿using BloodBankSystem.Application.Commands.Donor.CreateDonor;
+using BloodBankSystem.Application.Job;
 using BloodBankSystem.Application.Validators;
 using BloodBankSystem.Core.Services;
 using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel.Design;
 
 namespace BloodBankSystem.Application
 {
@@ -13,7 +14,7 @@ namespace BloodBankSystem.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddHandlers().AddValidation().AddExternalServices();
+            services.AddHandlers().AddValidation().AddExternalServices().AddNotification();
             return services;
         }
 
@@ -45,6 +46,14 @@ namespace BloodBankSystem.Application
 
             return services;
 
+        }
+
+        private static IServiceCollection AddNotification(this IServiceCollection services)
+        {
+            services.AddTransient<NotificationTask>();
+
+
+            return services;
         }
 
     }

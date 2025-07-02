@@ -1,6 +1,9 @@
 using BloodBankSystem.API.ExceptionHandler;
 using BloodBankSystem.Application;
+using BloodBankSystem.Application.Job;
+using BloodBankSystem.Core.Entities;
 using BloodBankSystem.Infrastructure;
+using Hangfire;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
@@ -17,6 +20,8 @@ builder.Services
        .AddExceptionHandler<ApiExceptionHandler>()
        .AddProblemDetails()
        .AddControllers();
+
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -47,6 +52,16 @@ builder.Services.AddSwaggerGen(op =>
 
 
 var app = builder.Build();
+
+app.UseHangfireDashboard();
+
+RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
+
+
+var smtp = new BloodBankSystem.Core.Entities.SmtpConfiguration();
+app.Configuration.GetSection("Smtp").Bind(smtp);
+Configuration.SMTP = smtp;
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
