@@ -10,5 +10,6 @@ namespace BloodBankSystem.Core.Repositores
         Task<int> Add(BloodStock bloodStock);
         Task Update(BloodStock bloodStock);
         List<BloodStockMinimumDTO> GetBloodStockBelowMinimum(int minQuantity);
+        IQueryable<BloodStockByTypeDTO> GetTotalBloodStockByType();
     }
 }

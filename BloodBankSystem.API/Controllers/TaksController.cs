@@ -14,7 +14,7 @@ namespace BloodBankSystem.API.Controllers
             // Usar no futuro para uma possivel dashboard.
             try
             {
-                RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
+                //RecurringJob.AddOrUpdate<NotificationTask>("job-send-notification", jb => jb.Execute(), "*/1 * * * *");
 
             }catch(Exception ex)
             {

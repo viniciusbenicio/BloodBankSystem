@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Linq;
 
 namespace BloodBankSystem.Infrastructure.Persistence.Repositores
 {
@@ -59,6 +60,20 @@ namespace BloodBankSystem.Infrastructure.Persistence.Repositores
 
             return connection.Query<BloodStockMinimumDTO>("GetBloodStockBelowMinimum", param: parametros, commandType: CommandType.StoredProcedure).ToList();
 
+        }
+
+        public IQueryable<BloodStockByTypeDTO> GetTotalBloodStockByType()
+        {
+            var bloodStocks = _context.BloodStocks.Where(x => !x.IsDeleted)
+                                                  .GroupBy(x => new { x.BloodType, x.HRFactor })
+                                                  .Select(g => new BloodStockByTypeDTO
+                                                  {
+                                                      BloodType = g.Key.BloodType,
+                                                      HRFactor = g.Key.HRFactor,
+                                                      QuantityMl = g.Sum(x => x.QuantityML)
+                                                  });
+
+            return bloodStocks;
         }
 
     }

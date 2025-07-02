@@ -7,6 +7,7 @@ using BloodBankSystem.Infrastructure.ExternalServices.Email;
 using BloodBankSystem.Infrastructure.ExternalServices.ViaCep;
 using BloodBankSystem.Infrastructure.Persistence;
 using BloodBankSystem.Infrastructure.Persistence.Repositores;
+using BloodBankSystem.Infrastructure.Reports;
 using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +37,7 @@ namespace BloodBankSystem.Infrastructure
             services.AddScoped<IDonationRepository, DonationRepository>();
             services.AddScoped<IBloodStockRepository, BloodStockRepository>();
             services.AddScoped<IJobRepository, JobRepository>();
-
+            services.AddScoped<IReportGenerator, ExcelReportGenerator>();
             return services;
         }
 
