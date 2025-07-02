@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BloodBankSystem.Application.Queries.Donation.GetDonationsLast30Days;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -19,5 +20,14 @@ public class ReportsController : ControllerBase
         var reportBytes = await _mediator.Send(query);
 
         return File(reportBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"BloodDonationsReport_{DateTime.Now.ToString("yyyyMMdd")}.xlsx");
+    }
+
+    [HttpGet("donations-last-30-days-with-donors")]
+    public async Task<IActionResult> GetDonationsLast30DaysWithDonorsReport()
+    {
+        var query = new GetDonationsLast30DaysReportQuery();
+        var reportBytes = await _mediator.Send(query);
+
+        return File(reportBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"DonationsLast30Days{DateTime.Now.ToString("yyyyMMdd")}.xlsx");
     }
 }
