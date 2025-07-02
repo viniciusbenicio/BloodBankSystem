@@ -18,6 +18,6 @@ public class ReportsController : ControllerBase
         var query = new GetBloodStockByTypeReportQuery();
         var reportBytes = await _mediator.Send(query);
 
-        return File(reportBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"BloodDonationsReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.xlsx");
+        return File(reportBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"BloodDonationsReport_{DateTime.Now.ToString("yyyyMMdd")}.xlsx");
     }
 }
