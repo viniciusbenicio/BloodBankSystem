@@ -6,21 +6,25 @@ API desenvolvida em **ASP.NET Core 8**, utilizando **Entity Framework Core** e *
 
 ## ✅ Tecnologias e Ferramentas Utilizadas
 
-* **ASP.NET Core 8**
-* **Entity Framework Core**
-* **SQL Server**
-* **Arquitetura Limpa**
-
-  * Camadas: `Core`, `Application`, `Infrastructure`, `API`
-* **InputModels** e **ViewModels**
-* **CQRS**
-* **Padrão Repository**
-* **Unit of Work**
-* **FluentValidation**
-* **Swagger**
-* **Integração com API ViaCEP**
+- **ASP.NET Core 8**
+- **Entity Framework Core**
+- **SQL Server**
+- **Arquitetura Limpa**
+  - Camadas: `Core`, `Application`, `Infrastructure`, `API`
+- **CQRS**
+- **InputModels**, **ViewModels** e **DTOs**
+- **FluentValidation**
+- **Repository Pattern**
+- **Unit of Work**
+- **Swagger / OpenAPI**
+- **Middleware para tratamento de exceções**
+- **Integração com API ViaCEP**
+- **HostedService** (tarefas em segundo plano)
+- **SendGrid** (envio de e-mails)
+- **Exportação de relatórios para Excel** 
 
 ---
+
 
 ## 🔧 Estrutura da API
 
@@ -29,6 +33,8 @@ A API possui endpoints RESTful organizados para as seguintes entidades:
 * **Donor** (`/api/donors`)
 * **Donation** (`/api/donations`)
 * **BloodStock** (`/api/bloodStocks`)
+* **Reports** (`/api/Reports/blood-stock-by-type`)
+* **Reports** (`/api/Reports/donations-last-30-days-with-donors`)
 
 Cada entidade possui operações de **CRUD** completas, com validações e regras de negócio aplicadas.
 
@@ -48,14 +54,19 @@ Cada entidade possui operações de **CRUD** completas, com validações e regra
   * Doadores
   * Doações
   * Estoque de sangue
-* **Validações de Regras de Negócio**, como:
 
-  * Impedir cadastro com e-mails duplicados
-  * Menores de idade podem se cadastrar, mas **não** doar
-  * Peso mínimo: **50kg**
-  * Mulheres só podem doar a cada **90 dias**
-  * Homens só podem doar a cada **60 dias**
-  * Volume da doação entre **420ml e 470ml**
+## ✅ Validações de Regras de Negócio
+
+* Não permitir o cadastro de doadores com e-mails duplicados
+* Menores de idade podem ser cadastrados, mas não podem doar
+* Peso mínimo obrigatório para doação: 50kg
+* Mulheres só podem doar a cada 90 dias (validação adicional)
+* Homens só podem doar a cada 60 dias (validação adicional)
+* Volume da doação deve estar entre 420ml e 470ml (validação adicional)
+
+---
+
+  
 * Atualização automática do estoque de sangue após doação
 * Consulta ao histórico de doações de cada doador
 * Integração com **API ViaCEP** para preenchimento automático de endereço
